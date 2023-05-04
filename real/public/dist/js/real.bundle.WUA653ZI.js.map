@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../apps/real/real/public/js/geolocation.js"],
-  "sourcesContent": ["import * as L from 'ol';\n\nfrappe.views.MapView = class MapView extends frappe.views.MapView  {\n    get required_libs() {\n\t\treturn [\n\t\t\t\"assets/frappe/js/lib/leaflet/leaflet.css\",\n\t\t\t\"assets/frappe/js/lib/leaflet/leaflet.js\",\n\t\t];\n\t}\n}"],
-  "mappings": ";;AAEA,SAAO,MAAM,UAAU,MAAM,gBAAgB,OAAO,MAAM,QAAS;AAAA,QAC3D,gBAAgB;AACtB,aAAO;AAAA,QACN;AAAA,QACA;AAAA,MACD;AAAA,IACD;AAAA,EACD;",
-  "names": []
-}
