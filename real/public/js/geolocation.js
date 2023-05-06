@@ -43,7 +43,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	make_vector_type() {
 		this.vector_type = $(`<select id="vector_type">
         <option value="LineString">Length (LineString)</option>
-        <option value="Polygon">Area (Polygon)</option>
+        <option selected value="Polygon">Area (Polygon)</option>
         <option value="Point">Point</option>
         <option value="Circle">Circle</option>
       </select>`)
@@ -62,7 +62,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		let value = this.frm.doc?.[this.df.fieldname]
 		let args = {}
 		if(value) {
-			args['features'] = new ol.format.GeoJSON().readFeatures(JSON.parse(JSON.parse(value)))
+			args['features'] = new ol.format.GeoJSON().readFeatures(JSON.parse(value))
 		}
 		this.source = new ol.source.Vector(args);
 		this.vector = new ol.layer.Vector({
@@ -120,7 +120,6 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	fit_to_display() {
 		// Get the extent of the vector data in the desired projection
 		const extent = this.source.getExtent();
-		console.log(this.source.getProjection())
 		const extent4326 = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326'); //, 'EPSG:3857', 'EPSG:4326'
 
 		// Get the view of the map
@@ -133,7 +132,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	addInteractions() {
 		this.draw = new ol.interaction.Draw({
 			source: this.source,
-			type: this.vector_type.val() || 'LineString',
+			type: this.vector_type.val() || 'Polygon',
 		});
 		this.map.addInteraction(this.draw);
 		this.snap = new ol.interaction.Snap({
@@ -160,10 +159,17 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 			const features = this.source.getFeatures();
 			const geojsonFormat = new ol.format.GeoJSON();
 			const geojson = geojsonFormat.writeFeatures(features);
-			this.set_value(JSON.stringify(geojson));
+			this.set_value(geojson); //JSON.stringify(
 		})
 	}
 	format_for_input(value) {
+	}
+	set_input(value) {
+		super.set_input()
+		this.source.clear();
+		if(value) {
+			this.source.addFeatures(new ol.format.GeoJSON().readFeatures(JSON.parse(value)))
+		}
 	}
 	get required_libs() {
 		window.L = L
