@@ -1,0 +1,6 @@
+<table class="table table-bordered">
+    <tr><th width="20%">{{ __("Building") }}</th><td>{{ name }}</td></tr>
+    <tr><th>{{ __("Building Date") }}</th><td>{{ data.date }}</td></tr>
+    <tr><th>{{ __("Note") }}</th><td>{{ data.notes }}</td></tr>
+</table>
+<a href="{{ frappe.utils.get_form_link(\"Real Item\", name) }}" class="btn btn-primary">{{ __("See Details") }}</a>
