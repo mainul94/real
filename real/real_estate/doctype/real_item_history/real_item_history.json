@@ -18,9 +18,9 @@
  "fields": [
   {
    "fieldname": "responsible",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Responsible",
-   "options": "Electrician\nProgrammer\nFacility Management"
+   "read_only": 1
   },
   {
    "fieldname": "column_break_rs87q",
@@ -58,7 +58,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-04 23:44:51.231204",
+ "modified": "2023-05-05 23:44:51.231204",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Real Item History",

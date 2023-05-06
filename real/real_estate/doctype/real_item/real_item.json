@@ -15,6 +15,8 @@
   "parent_real_item",
   "building_date",
   "renovation_date",
+  "section_break_lriif",
+  "logbook",
   "geo_details_tab",
   "flat_details",
   "column_break_kwcnb",
@@ -185,11 +187,21 @@
   {
    "fieldname": "column_break_0a9ky",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lriif",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "logbook",
+   "fieldtype": "Table",
+   "label": "Logbook",
+   "options": "Logbook"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-04 23:54:26.434461",
+ "modified": "2023-05-06 12:54:23.280994",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Real Item",

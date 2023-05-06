@@ -4,9 +4,5 @@
 # import frappe
 from frappe.model.document import Document
 
-class RealItem(Document):
-	def on_update(self):
-		self.update_lookbook()
-	
-	def update_lookbook(self):
-		pass
+class Logbook(Document):
+	pass

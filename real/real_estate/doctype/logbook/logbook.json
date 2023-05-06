@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-05-06 12:53:05.059030",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "log_time",
+  "user",
+  "column_break_t2vcb",
+  "access_for_view",
+  "floor",
+  "room_number",
+  "section_break_dtxrr",
+  "notes"
+ ],
+ "fields": [
+  {
+   "default": "Now",
+   "fieldname": "log_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Log Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "column_break_t2vcb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "access_for_view",
+   "fieldtype": "Data",
+   "label": "Access for View"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Data",
+   "label": "Floor"
+  },
+  {
+   "fieldname": "room_number",
+   "fieldtype": "Data",
+   "label": "Room Number"
+  },
+  {
+   "fieldname": "section_break_dtxrr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-05-06 12:54:51.622936",
+ "modified_by": "Administrator",
+ "module": "Real Estate",
+ "name": "Logbook",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
