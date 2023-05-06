@@ -1,0 +1,215 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2023-05-04 23:34:21.230765",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "short_details_tab",
+  "title",
+  "item_type",
+  "column_break_0a9ky",
+  "parent_real_item",
+  "building_date",
+  "renovation_date",
+  "geo_details_tab",
+  "flat_details",
+  "column_break_kwcnb",
+  "gps_coordinates",
+  "contact_and_address_tab",
+  "address",
+  "address_html",
+  "note_tab",
+  "notes",
+  "responsible_tab",
+  "electrician",
+  "electrician_address",
+  "column_break_gjykv",
+  "programmer",
+  "programmer_address",
+  "column_break_dsw1q",
+  "facility_management",
+  "facility_management_address",
+  "history_sections",
+  "history"
+ ],
+ "fields": [
+  {
+   "fieldname": "short_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Short Details"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "item_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Item Type",
+   "options": "Building\nApartment",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.item_type===\"Apartment\"",
+   "fieldname": "parent_real_item",
+   "fieldtype": "Link",
+   "label": "Building",
+   "mandatory_depends_on": "eval:doc.item_type===\"Apartment\"",
+   "options": "Real Item"
+  },
+  {
+   "fieldname": "building_date",
+   "fieldtype": "Date",
+   "label": "Building Date"
+  },
+  {
+   "fieldname": "renovation_date",
+   "fieldtype": "Date",
+   "label": "Renovation Date"
+  },
+  {
+   "fieldname": "geo_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "GEO Details"
+  },
+  {
+   "fieldname": "flat_details",
+   "fieldtype": "Geolocation",
+   "label": "Flat Details"
+  },
+  {
+   "fieldname": "column_break_kwcnb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gps_coordinates",
+   "fieldtype": "Data",
+   "label": "GPS Coordinates"
+  },
+  {
+   "fieldname": "contact_and_address_tab",
+   "fieldtype": "Tab Break",
+   "label": "Address and Contact"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "read_only": 1
+  },
+  {
+   "fieldname": "note_tab",
+   "fieldtype": "Tab Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "responsible_tab",
+   "fieldtype": "Tab Break",
+   "label": "Responsible"
+  },
+  {
+   "fieldname": "electrician",
+   "fieldtype": "Link",
+   "label": "Electrician",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "electrician_address",
+   "fieldtype": "Link",
+   "label": "Electrician Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "column_break_gjykv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "programmer",
+   "fieldtype": "Link",
+   "label": "Programmer",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "programmer_address",
+   "fieldtype": "Link",
+   "label": "Programmer Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "column_break_dsw1q",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "facility_management",
+   "fieldtype": "Link",
+   "label": "Facility Management",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "facility_management_address",
+   "fieldtype": "Link",
+   "label": "Facility Management Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "history_sections",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "history",
+   "fieldtype": "Table",
+   "label": "History",
+   "options": "Real Item History",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_0a9ky",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-05-04 23:54:26.434461",
+ "modified_by": "Administrator",
+ "module": "Real Estate",
+ "name": "Real Item",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
