@@ -1,0 +1,42 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"RE47zKlYXq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Real State</span>\",\"col\":12}},{\"id\":\"Ek1_Ur8VGI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Building Map\",\"col\":3}},{\"id\":\"M5e9b_BXki\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Buildings\",\"col\":3}}]",
+ "creation": "2023-05-08 14:56:10.622642",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "color-review-points",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Real State",
+ "links": [],
+ "modified": "2023-05-08 15:03:47.253503",
+ "modified_by": "Administrator",
+ "module": "Real Estate",
+ "name": "Real State",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Building Map",
+   "link_to": "buildings",
+   "type": "Page"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Buildings",
+   "link_to": "Real Item",
+   "type": "DocType"
+  }
+ ],
+ "title": "Real State"
+}
