@@ -158,8 +158,25 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		setTimeout(()=>{
 			const features = this.source.getFeatures();
 			const geojsonFormat = new ol.format.GeoJSON();
-			const geojson = geojsonFormat.writeFeatures(features);
-			this.set_value(geojson); //JSON.stringify(
+			const geojsonFeatures = [];
+
+			features.forEach((feature) => {
+			const geometryType = feature.getGeometry().getType();
+			if (geometryType === 'Circle') {
+				const circleGeometry = feature.getGeometry();
+				const polygonGeometry = ol.geom.Polygon.fromCircle(circleGeometry);
+				const polygonFeature = new ol.Feature({
+				geometry: polygonGeometry,
+				properties: feature.getProperties()
+				});
+				geojsonFeatures.push(polygonFeature);
+			} else {
+				geojsonFeatures.push(feature);
+			}
+			});
+
+			const geojson = geojsonFormat.writeFeatures(geojsonFeatures);
+			this.set_value(geojson);
 		})
 	}
 	format_for_input(value) {
