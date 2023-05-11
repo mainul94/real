@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format: {room_number}-{building}",
+ "creation": "2023-05-11 22:17:57.173226",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "building",
+  "building_location",
+  "room_number",
+  "room_type",
+  "map_tab",
+  "background_area_section",
+  "floor_plan",
+  "column_break_xrsap",
+  "minimum_x_extent",
+  "maximum_x_extent",
+  "minimum_y_extent",
+  "maximum_y_extent",
+  "room_map_location_section",
+  "roman_room_number",
+  "location"
+ ],
+ "fields": [
+  {
+   "fieldname": "building",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Building",
+   "options": "Real Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Room Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Room Type",
+   "options": "Room Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "map_tab",
+   "fieldtype": "Tab Break",
+   "label": "Map"
+  },
+  {
+   "fieldname": "background_area_section",
+   "fieldtype": "Section Break",
+   "label": "Background Area"
+  },
+  {
+   "fieldname": "floor_plan",
+   "fieldtype": "Attach Image",
+   "label": "Floor Plan"
+  },
+  {
+   "fieldname": "column_break_xrsap",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "minimum_x_extent",
+   "fieldtype": "Float",
+   "label": "Minimum X extent",
+   "precision": "9"
+  },
+  {
+   "fieldname": "maximum_x_extent",
+   "fieldtype": "Float",
+   "label": "Maximum X extent",
+   "precision": "9"
+  },
+  {
+   "fieldname": "minimum_y_extent",
+   "fieldtype": "Float",
+   "label": "Minimum Y extent",
+   "precision": "9"
+  },
+  {
+   "fieldname": "maximum_y_extent",
+   "fieldtype": "Float",
+   "label": "Maximum Y extent",
+   "precision": "9"
+  },
+  {
+   "fieldname": "room_map_location_section",
+   "fieldtype": "Section Break",
+   "label": "Room Map Location"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "Location"
+  },
+  {
+   "fieldname": "roman_room_number",
+   "fieldtype": "Int",
+   "label": "Roman Room Number"
+  },
+  {
+   "fetch_from": "building.flat_details",
+   "fieldname": "building_location",
+   "fieldtype": "Code",
+   "hidden": 1,
+   "label": "Building Location"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-05-11 22:23:34.578173",
+ "modified_by": "Administrator",
+ "module": "Real Estate",
+ "name": "Room",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

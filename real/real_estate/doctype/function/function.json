@@ -2,14 +2,14 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:title",
- "creation": "2023-05-04 23:05:43.918561",
+ "creation": "2023-05-11 15:34:38.204118",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "functions"
+  "details"
  ],
  "fields": [
   {
@@ -21,18 +21,17 @@
    "unique": 1
   },
   {
-   "fieldname": "functions",
-   "fieldtype": "Table MultiSelect",
-   "label": "Functions",
-   "options": "Function Item"
+   "fieldname": "details",
+   "fieldtype": "Text Editor",
+   "label": "Details"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-11 15:52:26.938015",
+ "modified": "2023-05-11 15:54:02.071501",
  "modified_by": "Administrator",
  "module": "Real Estate",
- "name": "Room Type",
+ "name": "Function",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
@@ -49,6 +48,7 @@
    "write": 1
   }
  ],
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
