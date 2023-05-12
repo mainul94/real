@@ -1,7 +1,10 @@
 import * as L from 'ol';
 import {
 	FullScreen,
-	defaults as defaultControls, ZoomToExtent, ScaleLine, Rotate
+	defaults as defaultControls,
+	ZoomToExtent,
+	ScaleLine,
+	Rotate
 } from 'ol/control.js';
 // import Attribution from 'ol/control/Attribution.js';
 
@@ -12,8 +15,9 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		this.map_area.children('#' + this.map_id).css('height', '400px')
 		this.bind_leaflet_map();
 		this.bind_olt_draw_control();
-		// this.bind_leaflet_locate_control();
-		// this.bind_leaflet_refresh_button();
+		if ("ol_on_render" in this.frm.events) {
+			this.frm.events.ol_on_render(this.frm, this.df.fieldname)
+		}
 	}
 	bind_leaflet_map() {
 		const raster = new ol.layer.Tile({
@@ -36,8 +40,8 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	}
 	bind_olt_draw_control() {
 		// if (this.can_write()) {
-			this.make_vector_type()
-			this.add_vector_layer()
+		this.make_vector_type()
+		this.add_vector_layer()
 		// }
 	}
 	make_vector_type() {
@@ -61,7 +65,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	add_vector_layer() {
 		let value = this.frm.doc?.[this.df.fieldname]
 		let args = {}
-		if(value) {
+		if (value) {
 			args['features'] = new ol.format.GeoJSON().readFeatures(JSON.parse(value))
 		}
 		this.source = new ol.source.Vector(args);
@@ -115,7 +119,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 			size: this.map.getSize(),
 			padding: [10, 10, 10, 10],
 			maxZoom: 16 // or any other maximum zoom level you desire
-		  });
+		});
 	}
 	fit_to_display() {
 		// Get the extent of the vector data in the desired projection
@@ -126,7 +130,10 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		const view = this.map.getView();
 
 		// Zoom the map to the extent of the vector data in the desired projection
-		view.fit(extent4326, { padding: [50, 50, 50, 50], duration: 1000 });
+		view.fit(extent4326, {
+			padding: [50, 50, 50, 50],
+			duration: 1000
+		});
 
 	}
 	addInteractions() {
@@ -144,47 +151,46 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		});
 		this.map.addInteraction(this.modify);
 		// Add Events
-		this.draw.on('drawend', ()=>{
+		this.draw.on('drawend', () => {
 			this.set_input_value_as_string()
 		})
-		this.modify.on('modifyend', ()=>{
+		this.modify.on('modifyend', () => {
 			this.set_input_value_as_string()
 		})
 		// this.remove.on('removeend', ()=>{
 		// 	this.set_input_value_as_string()
 		// })
 	}
-	set_input_value_as_string(){
-		setTimeout(()=>{
+	set_input_value_as_string() {
+		setTimeout(() => {
 			const features = this.source.getFeatures();
 			const geojsonFormat = new ol.format.GeoJSON();
 			const geojsonFeatures = [];
 
 			features.forEach((feature) => {
-			const geometryType = feature.getGeometry().getType();
-			if (geometryType === 'Circle') {
-				const circleGeometry = feature.getGeometry();
-				const polygonGeometry = ol.geom.Polygon.fromCircle(circleGeometry);
-				const polygonFeature = new ol.Feature({
-				geometry: polygonGeometry,
-				properties: feature.getProperties()
-				});
-				geojsonFeatures.push(polygonFeature);
-			} else {
-				geojsonFeatures.push(feature);
-			}
+				const geometryType = feature.getGeometry().getType();
+				if (geometryType === 'Circle') {
+					const circleGeometry = feature.getGeometry();
+					const polygonGeometry = ol.geom.Polygon.fromCircle(circleGeometry);
+					const polygonFeature = new ol.Feature({
+						geometry: polygonGeometry,
+						properties: feature.getProperties()
+					});
+					geojsonFeatures.push(polygonFeature);
+				} else {
+					geojsonFeatures.push(feature);
+				}
 			});
 
 			const geojson = geojsonFormat.writeFeatures(geojsonFeatures);
 			this.set_value(geojson);
 		})
 	}
-	format_for_input(value) {
-	}
+	format_for_input(value) {}
 	set_input(value) {
 		super.set_input()
 		this.source.clear();
-		if(value) {
+		if (value) {
 			this.source.addFeatures(new ol.format.GeoJSON().readFeatures(JSON.parse(value)))
 		}
 	}
