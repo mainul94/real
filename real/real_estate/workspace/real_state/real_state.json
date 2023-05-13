@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"RE47zKlYXq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Real State</span>\",\"col\":12}},{\"id\":\"Ek1_Ur8VGI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Building Map\",\"col\":3}},{\"id\":\"M5e9b_BXki\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Buildings\",\"col\":3}}]",
+ "content": "[{\"id\":\"RE47zKlYXq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Real State</span>\",\"col\":12}},{\"id\":\"Ek1_Ur8VGI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Building Map\",\"col\":3}},{\"id\":\"M5e9b_BXki\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Buildings\",\"col\":3}},{\"id\":\"kXlCt_505t\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"6gsH7vWuFD\",\"type\":\"card\",\"data\":{\"card_name\":\"Daily Operation\",\"col\":4}},{\"id\":\"KuE5qN4Fom\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
  "creation": "2023-05-08 14:56:10.622642",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -10,8 +10,95 @@
  "idx": 0,
  "is_hidden": 0,
  "label": "Real State",
- "links": [],
- "modified": "2023-05-08 15:03:47.253503",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Operation",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Buildings",
+   "link_count": 0,
+   "link_to": "Real Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Room",
+   "link_count": 0,
+   "link_to": "Room",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "IP Device",
+   "link_count": 0,
+   "link_to": "IP Device",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Room Type",
+   "link_count": 0,
+   "link_to": "Room Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Function",
+   "link_count": 0,
+   "link_to": "Function",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "IP Device Category",
+   "link_count": 0,
+   "link_to": "IP Device Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "IP Device Model",
+   "link_count": 0,
+   "link_to": "IP Device Model",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-05-13 10:11:51.504413",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Real State",

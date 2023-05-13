@@ -112,7 +112,6 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	zoom_to_vector_center() {
 		// Get the current view of the map
 		const view = this.map.getView();
-		console.log(this.source.getExtent())
 		// Set the new center point on the map's view
 		// view.setCenter(ol.extent.getCenter(this.source.getExtent()));
 		view.fit(this.source.getExtent(), {
