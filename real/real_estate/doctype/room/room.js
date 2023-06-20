@@ -1,6 +1,12 @@
 // Copyright (c) 2023, Mainul Islam and contributors
 // For license information, please see license.txt
 
+const DEFAULT_TYPE_IMAGE = {
+	'Function': '',
+	'IP Device': ''
+}
+
+
 frappe.ui.form.on('Room', {
 	refresh: frm => {
 		frm.trigger('floor_plan')
@@ -59,6 +65,71 @@ frappe.ui.form.on('Room', {
 		if (fieldname == "location") {
 			frm.trigger('set_floor_plan')
 			frm.trigger('set_roman_room_number')
+			frm.trigger('set_elements')
+		}
+	},
+	set_elements: frm =>{
+		let map_field = frm.get_field('location');
+		if (map_field) {
+			// create vetor layer
+			frm.element_source = new ol.source.Vector()
+			frm.element_layer = new ol.layer.Vector({
+				source: frm.element_source,
+				style: function(feature) {
+					return new ol.style.Style({
+						image: new ol.style.Icon({
+							src: feature.data['icon'] || DEFAULT_TYPE_IMAGE[feature.data.element_type], // replace with your image path
+							anchor: [0.5, 1],
+							scale: 0.5,
+							size: [32, 32]
+						})
+					});
+				},
+				zIndex: 5
+			})
+			// Filter input.
+			let wrapper = $('<div>').appendTo(map_field.map_are)
+			map_field.filter_element = frappe.ui.form.make_control({
+				parent: wrapper,
+				df: {
+					fieldname: map_field.df.fieldname+'_element_type',
+					fieldtype: 'Select',
+					options: [
+						{'value': '', 'label': __('All')},
+						{'value': 'Function', 'label': __('Function')},
+						{'value': 'IP Device', 'label': __('IP Device')}
+					],
+				},
+				render_input: true,
+				on_change: value=>{
+					frm.trigger('filte_elements')
+				}
+			})
+		}
+	},
+	filte_elements: frm =>{
+		// Show elements based on filters.
+		frm.element_source.clear()
+		frm.trigger('inserts_elements')
+	},
+	inserts_elements: frm =>{
+		let map_field = frm.get_field('location');
+		if (map_field) {
+			filters_val = map_field.filter_element.get_value()
+			let items = frm.doc?.['elements'] || []
+			if (filters_val && filters_val !='All') {
+				items = frm.doc?.['elements'].filter(row=>row.element_type===filters_val)
+			}
+			items.forEach(row=>{
+				let point = (row.latitude || row.longitude)?[row.latitude, row.longitude]:ol.extent.getCenter(map_field.source.getExtent())
+				frm.element_source.addFeatures([
+					new ol.Feature({
+						geometry: new ol.geom.Point(point),
+						name: row.name,
+						data: row
+					})
+				])
+			})
 		}
 	},
 	roman_room_number: frm => {
@@ -160,3 +231,8 @@ function getRomanNumeral(number) {
 	}
 	return result;
 }
+frappe.ui.form.on('Room Element', {
+	elements_add: (frm, cdt, cdn)=>{
+		frm.trigger('filte_elements')
+	}
+})

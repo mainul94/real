@@ -1,0 +1,64 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-06-19 18:14:40.407884",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "element_type",
+  "element",
+  "icon",
+  "latitude",
+  "longitude"
+ ],
+ "fields": [
+  {
+   "fieldname": "element_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Element Type",
+   "options": "Function\nIP Device",
+   "reqd": 1
+  },
+  {
+   "fieldname": "element",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Element",
+   "options": "element_type"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Icon"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Latitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Longitude",
+   "precision": "9"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-06-19 18:26:43.712947",
+ "modified_by": "Administrator",
+ "module": "Real Estate",
+ "name": "Room Element",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
