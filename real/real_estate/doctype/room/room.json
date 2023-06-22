@@ -59,6 +59,7 @@
   {
    "fieldname": "background_area_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Background Area"
   },
   {
@@ -127,7 +128,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-06-19 18:47:12.531522",
+ "modified": "2023-06-22 18:25:14.298346",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Room",

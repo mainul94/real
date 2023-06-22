@@ -2,8 +2,8 @@
 // For license information, please see license.txt
 
 const DEFAULT_TYPE_IMAGE = {
-	'Function': '',
-	'IP Device': ''
+	'Function': '/assets/real/images/fun.png',
+	'IP Device': '/assets/real/images/device.jpg'
 }
 
 
@@ -57,8 +57,8 @@ frappe.ui.form.on('Room', {
 			}
 			// set Certer View.
 			map.getView().setCenter(ol.extent.getCenter(extents))
-		} else if (map && !frm.doc.floor_plan && "imageLayerSource" in this.frm) {
-			this.frm.imageLayerSource.clear()
+		} else if (map && !frm.doc.floor_plan && "imageLayerSource" in frm) {
+			frm.imageLayerSource.clear()
 		}
 	},
 	ol_on_render: (frm, fieldname) => {
@@ -78,16 +78,52 @@ frappe.ui.form.on('Room', {
 				style: function(feature) {
 					return new ol.style.Style({
 						image: new ol.style.Icon({
-							src: feature.data['icon'] || DEFAULT_TYPE_IMAGE[feature.data.element_type], // replace with your image path
-							anchor: [0.5, 1],
-							scale: 0.5,
-							size: [32, 32]
-						})
+							src: feature.values_.data['icon'] || DEFAULT_TYPE_IMAGE[feature.values_.data.element_type], // replace with your image path
+							// scale: 0.5,
+							// size: [64, 64]
+						}),
+						text: new ol.style.Text({
+							text: `${frappe.get_abbr(feature.values_.data.element_type)} - ${feature.values_.data['idx']}`,
+							font: '12px Arial', // Adjust the font and size as needed
+							fill: new ol.style.Fill({ color: 'black' }), // Adjust the text color
+							stroke: new ol.style.Stroke({ color: 'white', width: 2 }) // Adjust the text outline color and width
+						  })
 					});
 				},
 				zIndex: 5
 			})
 			map_field.map.addLayer(frm.element_layer)
+			// Add select and modify events.
+			let selectInteraction = new ol.interaction.Select();
+			map_field.map.addInteraction(selectInteraction);
+
+			let modifyInteraction = new ol.interaction.Modify({
+			features: selectInteraction.getFeatures()
+			});
+			map_field.map.addInteraction(modifyInteraction);
+			// On Click
+			map_field.map.on('click', function(event) {
+				var selectedFeatures = selectInteraction.getFeatures();
+				selectedFeatures.clear();
+			  
+				map_field.map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
+					if (layer === frm.element_layer) {
+					  selectedFeatures.push(feature);
+					  return true;
+					}
+				  });
+				if (selectedFeatures.getLength() > 0) {
+				  var selectedFeature = selectedFeatures.item(0);
+				  var geometry = selectedFeature.getGeometry();
+			  
+				  // Modify the location of the selected point feature
+				  geometry.setCoordinates(event.coordinate);
+				  console.log(event.coordinate)
+				  frappe.model.set_value(selectedFeature.values_.data.doctype, selectedFeature.values_.data.name, 'latitude',event.coordinate[0])
+				  frappe.model.set_value(selectedFeature.values_.data.doctype, selectedFeature.values_.data.name, 'longitude',event.coordinate[1])
+				}
+			  });
+			  
 			// Filter input.
 			let wrapper = $('<div>')
 			wrapper.appendTo(map_field.map_area)
@@ -101,30 +137,29 @@ frappe.ui.form.on('Room', {
 						{'value': 'Function', 'label': __('Function')},
 						{'value': 'IP Device', 'label': __('IP Device')}
 					],
-					on_change: value=>{
-						console.log("Hi")
+					onchange: function () {
 						frm.trigger('filte_elements')
 					}
 				},
 				render_input: true,
 			})
+			// Initial Trigger.
+			frm.trigger('filte_elements')
 		}
 	},
 	filte_elements: frm =>{
 		// Show elements based on filters.
-		console.log("Hello")
 		frm.element_source.clear()
 		frm.trigger('inserts_elements')
 	},
 	inserts_elements: frm =>{
 		let map_field = frm.get_field('location');
 		if (map_field) {
-			filters_val = map_field.filter_element.get_value()
-			let items = frm.doc?.['elements'] || []
+			let filters_val = map_field.filter_element.get_value()
+			let items = frm.doc?.['elements'].filter(row=>row.element_type) || []
 			if (filters_val && filters_val !='All') {
 				items = frm.doc?.['elements'].filter(row=>row.element_type===filters_val)
 			}
-			console.log(items)
 			items.forEach(row=>{
 				let point = (row.latitude || row.longitude)?[row.latitude, row.longitude]:ol.extent.getCenter(map_field.source.getExtent())
 				frm.element_source.addFeatures([
@@ -147,7 +182,7 @@ frappe.ui.form.on('Room', {
 				frm.textLayerSource = new ol.source.Vector()
 				frm.textLayer = new ol.layer.Vector({
 					source: frm.textLayerSource,
-					zIndex: 2,
+					zIndex: 20,
 					style: function(feature) {
 						return new ol.style.Style({
 						  text: new ol.style.Text({
@@ -171,6 +206,20 @@ frappe.ui.form.on('Room', {
 		}
 	}
 });
+
+
+frappe.ui.form.on('Room Element', {
+	elements_add: (frm, cdt, cdn)=>{
+		frm.trigger('filte_elements')
+	},
+	icon: frm =>{
+		frm.trigger('filte_elements')
+	},
+	element_type: frm =>{
+		frm.trigger('filte_elements')
+	}
+})
+
 
 function getRomanNumeral(number) {
 	var romanNumerals = [{
@@ -236,8 +285,3 @@ function getRomanNumeral(number) {
 	}
 	return result;
 }
-frappe.ui.form.on('Room Element', {
-	elements_add: (frm, cdt, cdn)=>{
-		frm.trigger('filte_elements')
-	}
-})

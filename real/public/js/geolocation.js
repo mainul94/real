@@ -46,6 +46,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 	}
 	make_vector_type() {
 		this.vector_type = $(`<select id="vector_type">
+        <option value=""> </option>
         <option value="LineString">Length (LineString)</option>
         <option selected value="Polygon">Area (Polygon)</option>
         <option value="Point">Point</option>
@@ -54,7 +55,9 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		this.vector_type.appendTo(this.map_area).on('change', () => {
 			this.map.removeInteraction(this.draw);
 			this.map.removeInteraction(this.snap);
-			this.addInteractions();
+			if(this.vector_type.val()){
+				this.addInteractions();
+			}
 		})
 		this.reset_button = $(`<button type="button"> ${__("Reset")}</button>`)
 		this.reset_button.appendTo(this.map_area).on('click', () => {
