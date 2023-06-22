@@ -87,8 +87,10 @@ frappe.ui.form.on('Room', {
 				},
 				zIndex: 5
 			})
+			map_field.map.addLayer(frm.element_layer)
 			// Filter input.
-			let wrapper = $('<div>').appendTo(map_field.map_are)
+			let wrapper = $('<div>')
+			wrapper.appendTo(map_field.map_area)
 			map_field.filter_element = frappe.ui.form.make_control({
 				parent: wrapper,
 				df: {
@@ -99,16 +101,18 @@ frappe.ui.form.on('Room', {
 						{'value': 'Function', 'label': __('Function')},
 						{'value': 'IP Device', 'label': __('IP Device')}
 					],
+					on_change: value=>{
+						console.log("Hi")
+						frm.trigger('filte_elements')
+					}
 				},
 				render_input: true,
-				on_change: value=>{
-					frm.trigger('filte_elements')
-				}
 			})
 		}
 	},
 	filte_elements: frm =>{
 		// Show elements based on filters.
+		console.log("Hello")
 		frm.element_source.clear()
 		frm.trigger('inserts_elements')
 	},
@@ -120,6 +124,7 @@ frappe.ui.form.on('Room', {
 			if (filters_val && filters_val !='All') {
 				items = frm.doc?.['elements'].filter(row=>row.element_type===filters_val)
 			}
+			console.log(items)
 			items.forEach(row=>{
 				let point = (row.latitude || row.longitude)?[row.latitude, row.longitude]:ol.extent.getCenter(map_field.source.getExtent())
 				frm.element_source.addFeatures([
