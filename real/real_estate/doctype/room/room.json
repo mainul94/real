@@ -9,12 +9,15 @@
  "engine": "InnoDB",
  "field_order": [
   "building",
+  "floor",
   "building_location",
+  "floor_location",
   "room_number",
   "room_type",
   "map_tab",
   "background_area_section",
   "floor_plan",
+  "building_plan",
   "column_break_xrsap",
   "minimum_x_extent",
   "maximum_x_extent",
@@ -63,9 +66,8 @@
    "label": "Background Area"
   },
   {
-   "fetch_from": "building.floor",
    "fieldname": "floor_plan",
-   "fieldtype": "Attach Image",
+   "fieldtype": "Attach",
    "hidden": 1,
    "label": "Floor Plan"
   },
@@ -124,11 +126,32 @@
    "fieldtype": "Table",
    "label": "Elements",
    "options": "Room Element"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "floor_location",
+   "fieldtype": "Code",
+   "hidden": 1,
+   "ignore_user_permissions": 1,
+   "label": "Floor Location"
+  },
+  {
+   "fetch_from": "building.floor",
+   "fieldname": "building_plan",
+   "fieldtype": "Attach",
+   "hidden": 1,
+   "label": "Building Plan"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-06-22 18:25:14.298346",
+ "modified": "2023-07-08 13:22:52.998156",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Room",

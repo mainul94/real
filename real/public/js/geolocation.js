@@ -66,7 +66,7 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		})
 	}
 	add_vector_layer() {
-		let value = this.frm.doc?.[this.df.fieldname]
+		let value = this.get_model_value()
 		let args = {}
 		if (value) {
 			args['features'] = new ol.format.GeoJSON().readFeatures(JSON.parse(value))

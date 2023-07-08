@@ -12,7 +12,31 @@ frappe.ui.form.on('Room', {
 		frm.trigger('floor_plan')
 	},
 	building_location: frm => {
-		const data = JSON.parse(frm.doc.building_location)
+		frm.trigger('set_location')
+	},
+	floor_location: frm => {
+		frm.trigger('set_location')
+	},
+	floor: frm =>{
+		if (frm.doc.floor) {
+			frappe.xcall('frappe.client.get_value', {
+				doctype: 'Floor',
+				fieldname: ['floor_map', 'floor'],
+				as_dict: true,
+				parent: 'Real Item'
+			}).then(res=>{
+				if(res) {
+					frm.set_value('floor_plan', res.floor)
+					frm.set_value('floor_location', res.floor_map)
+				}
+			})
+		}else {
+			frm.set_value('floor_plan', '')
+			frm.set_value('floor_location', '')
+		}
+	},
+	set_location: frm => {
+		const data = JSON.parse(frm.doc.floor_location || frm.doc.building_location)
 		let minX = Infinity;
 		let minY = Infinity;
 		let maxX = -Infinity;
@@ -41,9 +65,10 @@ frappe.ui.form.on('Room', {
 	set_floor_plan: frm => {
 		let map = frm.get_field('location').map;
 		let extents = [frm.doc.minimum_x_extent, frm.doc.minimum_y_extent, frm.doc.maximum_x_extent, frm.doc.maximum_y_extent]
-		if (map && frm.doc.floor_plan) {
+		let plan = frm.doc.floor_plan || frm.doc.building_plan
+		if (map && plan) {
 			frm.imageLayerSource = new ol.source.ImageStatic({
-				url: frm.doc.floor_plan,
+				url: plan,
 				imageExtent: extents
 			})
 			if (!frm.imageLayer) {
@@ -57,7 +82,7 @@ frappe.ui.form.on('Room', {
 			}
 			// set Certer View.
 			map.getView().setCenter(ol.extent.getCenter(extents))
-		} else if (map && !frm.doc.floor_plan && "imageLayerSource" in frm) {
+		} else if (map && !plan && "imageLayerSource" in frm) {
 			frm.imageLayerSource.clear()
 		}
 	},
